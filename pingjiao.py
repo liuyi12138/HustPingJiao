@@ -4,8 +4,8 @@ from selenium import webdriver
 driver = webdriver.Chrome()
 driver.get("http://curriculum.hust.edu.cn/")
 
-ACCOUNT = "U201813423"
-PASSWORD = "z.528086118"
+ACCOUNT = "" #学号
+PASSWORD = "" #统一认证平台密码
 
 
 def login(): 
@@ -61,7 +61,7 @@ def pingJiao(itemId,page): #对某课程进行评教
         if(len(item) != 0):
             item[0].click()
             time.sleep(0.1)
-    driver.find_elements_by_class_name('buttonDivLeft')[1].click()
+    driver.find_elements_by_class_name('buttonDivLeft')[1].click() #修改此处可以改变评教等级 默认为优秀
     driver.switch_to.alert.accept()
     driver.switch_to.window(driver.window_handles[0])
     time.sleep(1)
