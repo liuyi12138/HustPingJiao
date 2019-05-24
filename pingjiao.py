@@ -29,22 +29,23 @@ def pingJiaoAll(): #遍历page
     pingJiaoPage(pageNum)
 
 def pingJiaoPage(pageNum): #获取page中课程列表
-    print("page:" + str(pageNum))
+    try:
+        time.sleep(0.5)
+        items = driver.find_elements_by_xpath('//td[@class = "tableSM"]/div')
 
-    time.sleep(0.5)
-    items = driver.find_elements_by_xpath('//td[@class = "tableSM"]/div')
-
-    for item in items:
-        itemName = driver.find_elements_by_class_name('tableTitleDIV_green')[items.index(item)].text
-        if(item.text == "评价"):
-            print(itemName + "开始评教")
-            itemId = item.get_attribute('onclick')[13:20]
-            pingJiao(itemId,pageNum)
-            print(itemName + "评教已完成")
-        else:
-            print(itemName + "评教已完成")
-    print("\n")
-    return
+        for item in items:
+            itemName = driver.find_elements_by_class_name('tableTitleDIV_green')[items.index(item)].text
+            if(item.text == "评价"):
+                print(itemName + "开始评教")
+                itemId = item.get_attribute('onclick')[13:20]
+                pingJiao(itemId,pageNum)
+                print(itemName + "评教已完成")
+            else:
+                print(itemName + "评教已完成")
+        print("\n")
+        return
+    except:
+        pingJiaoAll()
 
 def pingJiao(itemId,page): #对某课程进行评教
 
@@ -55,7 +56,7 @@ def pingJiao(itemId,page): #对某课程进行评教
     driver.switch_to.window(driver.window_handles[-1])
     
     time.sleep(0.3)
-    for i in range(7):
+    for i in range(10):
         tempStr = '//td[@id = \"pjxx' + str(i)  + '\"]/input'
         item = driver.find_elements_by_xpath(tempStr)
         if(len(item) != 0):
