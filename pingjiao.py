@@ -43,9 +43,10 @@ def pingJiaoPage(pageNum): #获取page中课程列表
             else:
                 print(itemName + "评教已完成")
         print("\n")
-        return
     except:
         pingJiaoAll()
+    else:
+        return
 
 def pingJiao(itemId,page): #对某课程进行评教
 
