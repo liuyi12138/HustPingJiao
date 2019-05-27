@@ -30,7 +30,7 @@ def pingJiaoAll(): #遍历page
 
 def pingJiaoPage(pageNum): #获取page中课程列表
     try:
-        time.sleep(0.5)
+        time.sleep(0.3)
         items = driver.find_elements_by_xpath('//td[@class = "tableSM"]/div')
 
         for item in items:
@@ -44,7 +44,7 @@ def pingJiaoPage(pageNum): #获取page中课程列表
                 print(itemName + "评教已完成")
         print("\n")
     except:
-        pingJiaoAll()
+        pingJiaoPage(pageNum)
     else:
         return
 
@@ -56,14 +56,14 @@ def pingJiao(itemId,page): #对某课程进行评教
     driver.execute_script(js)
     driver.switch_to.window(driver.window_handles[-1])
     
-    time.sleep(0.3)
+    time.sleep(0.2)
     for i in range(10):
         tempStr = '//td[@id = \"pjxx' + str(i)  + '\"]/input'
         item = driver.find_elements_by_xpath(tempStr)
         if(len(item) != 0):
-            item[0].click()
+            item[0].click() #修改此处可以改变评教等级 默认为优秀
             time.sleep(0.1)
-    driver.find_elements_by_class_name('buttonDivLeft')[1].click() #修改此处可以改变评教等级 默认为优秀
+    driver.find_elements_by_class_name('buttonDivLeft')[1].click()
     driver.switch_to.alert.accept()
     driver.switch_to.window(driver.window_handles[0])
     time.sleep(1)
